@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
+import static org.mockito.Mockito.when;
+
 public class OrderServiceImpl {
 
     @Test
@@ -15,6 +17,7 @@ public class OrderServiceImpl {
 
     @Test
     void testGetOrdersByUserId_NoOrdersFound_ThrowsResourceNotFoundException() {
+        Object orderRepository;
         when(orderRepository.findByUserId(1L)).thenReturn(Collections.emptyList());
         Assertions.assertThrows(GlobalExceptionHandler.ResourceNotFoundException.class, () -> orderService.getOrdersByUserId(1L));
     }

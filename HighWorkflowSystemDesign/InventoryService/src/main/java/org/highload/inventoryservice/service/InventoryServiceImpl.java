@@ -62,20 +62,6 @@ public class InventoryServiceImpl implements InventoryService {
         }
     }
 
-package com.highload.service.external.impl;
-
-import com.highload.service.external.InventoryService;
-import io.micrometer.core.annotation.Timed;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
-
-@Service
-public class InventoryServiceImpl implements InventoryService {
-
-    private final RestTemplate restTemplate;
-    private final String inventoryServiceUrl;
 
     public InventoryServiceImpl(RestTemplate restTemplate, @Value("${inventory.service.url}") String inventoryServiceUrl) {
         this.restTemplate = restTemplate;

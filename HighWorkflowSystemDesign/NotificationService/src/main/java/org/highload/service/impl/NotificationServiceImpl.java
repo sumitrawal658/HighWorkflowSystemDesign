@@ -1,86 +1,66 @@
 package com.highload.service.impl;
 
 import com.highload.model.Notification;
-import com.highload.repository.NotificationRepository;
 import com.highload.service.NotificationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NotificationServiceImpl implements NotificationService {
 
-    private final NotificationRepository notificationRepository;
-
-    @Autowired
-    public NotificationServiceImpl(NotificationRepository notificationRepository) {
-        this.notificationRepository = notificationRepository;
-    }
+    private final List<Notification> notifications = new ArrayList<>();
 
     @Override
     public Notification sendNotification(Notification notification) {
-        if (notification == null) {
-            throw new ValidationException("Notification object cannot be null.");
-        }
-        if (notification.getUserId() == null || notification.getUserId() <= 0) {
-            throw new ValidationException("User ID must be a positive number.");
-        }
-        if (notification.getMessage() == null || notification.getMessage().trim().isEmpty()) {
-            throw new ValidationException("Notification message cannot be null or empty.");
-        }
-        return notificationRepository.save(notification);
+        notification.setCreatedAt(LocalDateTime.now());
+        notification.setStatus(Notification.NotificationStatus.PENDING);
+        notifications.add(notification);
+        return notification;
     }
 
     @Override
     public List<Notification> getNotificationsByUserId(Long userId) {
-        if (userId == null || userId <= 0) {
-            throw new ValidationException("User ID must be a positive number.");
-        }
-        return notificationRepository.findByUserId(userId);
+        return notifications.stream()
+                .filter(notification -> notification.getUserId().equals(userId))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Notification> getNotificationsByStatus(Notification.NotificationStatus status) {
-        if (status == null) {
-            throw new ValidationException("Notification status cannot be null.");
-        }
-        return notificationRepository.findByStatus(status);
+        return notifications.stream()
+                .filter(notification -> notification.getStatus() == status)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Notification> getNotificationsByType(Notification.NotificationType type) {
-        if (type == null) {
-            throw new ValidationException("Notification type cannot be null.");
-        }
-        return notificationRepository.findByType(type);
+        return notifications.stream()
+                .filter(notification -> notification.getType() == type)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Notification> getRecentNotifications(Long userId, LocalDateTime since) {
-        if (userId == null || userId <= 0) {
-            throw new ValidationException("User ID must be a positive number.");
-        }
-        if (since == null) {
-            throw new ValidationException("Timestamp 'since' cannot be null.");
-        }
-        return notificationRepository.findRecentNotifications(userId, since);
+        return notifications.stream()
+                .filter(notification -> notification.getUserId().equals(userId) && notification.getCreatedAt().isAfter(since))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Notification> getPendingNotificationsDue(LocalDateTime now) {
-        if (now == null) {
-            throw new ValidationException("Current time 'now' cannot be null.");
-        }
-        return notificationRepository.findPendingNotificationsDue(now);
+        return notifications.stream()
+                .filter(notification -> notification.getStatus() == Notification.NotificationStatus.PENDING && notification.getCreatedAt().isBefore(now))
+                .collect(Collectors.toList());
     }
 
     @Override
     public long countUnreadNotifications(Long userId) {
-        if (userId == null || userId <= 0) {
-            throw new ValidationException("User ID must be a positive number.");
-        }
-        return notificationRepository.countUnreadNotifications(userId);
+        return notifications.stream()
+                .filter(notification -> notification.getUserId().equals(userId) && notification.getStatus() == Notification.NotificationStatus.PENDING)
+                .count();
     }
 }

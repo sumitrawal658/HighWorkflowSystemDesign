@@ -1,6 +1,6 @@
 package org.highload.service;
 
-package com.highload.service;
+
 
 import com.highload.model.Order;
 

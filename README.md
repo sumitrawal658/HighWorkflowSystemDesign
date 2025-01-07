@@ -127,6 +127,7 @@ Deploy using a cloud provider like AWS, Azure, or GCP for scalability and manage
 
 ### Kafka Event Consumer
 
+
 ## Caching Strategy
 
 ### Redis Configuration
@@ -151,3 +152,8 @@ Each service should be containerized and deployed independently, with proper hea
 ![img_8.png](HighWorkflowSystemDesign/img_8.png)
 ![img_3.png](HighWorkflowSystemDesign/img_3.png)
 ![img_6.png](HighWorkflowSystemDesign/img_6.png)
+![img.png](img.png)
+![img_1.png](img_1.png)
+![img_2.png](img_2.png)
+![img_3.png](img_3.png)
+![img_4.png](img_4.png)

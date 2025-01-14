@@ -144,11 +144,3 @@ This implementation provides:
 - API Gateway for request routing and load balancing
 
 Each service should be containerized and deployed independently, with proper health checks and circuit breakers implemented for resilience.
-
-![img.png](img.png)
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
-![img_4.png](img_4.png)
-![img_6.png](img_6.png)
-![img_7.png](img_7.png)
-![img_9.png](img_9.png)

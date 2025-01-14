@@ -145,15 +145,3 @@ This implementation provides:
 - API Gateway for request routing and load balancing
 
 Each service should be containerized and deployed independently, with proper health checks and circuit breakers implemented for resilience.
-![img_10.png](HighWorkflowSystemDesign/img_10.png)
-![img_11.png](HighWorkflowSystemDesign/img_11.png)
-![img_7.png](HighWorkflowSystemDesign/img_7.png)
-![image.png](HighWorkflowSystemDesign/image.png)
-![img_8.png](HighWorkflowSystemDesign/img_8.png)
-![img_3.png](HighWorkflowSystemDesign/img_3.png)
-![img_6.png](HighWorkflowSystemDesign/img_6.png)
-![img.png](img.png)
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
-![img_3.png](img_3.png)
-![img_4.png](img_4.png)

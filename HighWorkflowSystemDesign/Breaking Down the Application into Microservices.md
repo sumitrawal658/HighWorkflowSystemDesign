@@ -95,4 +95,3 @@ Break down the application's functionality into distinct business domains. Each 
 - **Independent Scalability:** Domains like Payment Gateway and Notifications can scale separately based on workload.
 - **Enhanced Modularity:** Simplifies maintenance, testing, and feature addition.
 
-![Domain Identification](image.png)
